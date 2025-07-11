@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alvin Brentt Raymundo - Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Import three.js for the 3D background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        /* Set the background on the html element to ensure it's at the very back */
+        html {
+            background-color: #111827; /* Dark Slate */
+        }
+        body {
+            font-family: 'Exo 2', sans-serif;
+            color: #E5E7EB; /* Light Gray */
+            background-color: transparent; /* Ensure body is transparent to see canvas behind it */
+        }
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .neon-text {
+            text-shadow:
+                0 0 5px rgba(79, 70, 229, 0.8), /* Indigo */
+                0 0 10px rgba(79, 70, 229, 0.8),
+                0 0 15px rgba(79, 70, 229, 0.6),
+                0 0 20px rgba(79, 70, 229, 0.6);
+        }
+        .skill-bar-fill {
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.7); /* Blue */
+            transition: width 1.5s ease-in-out;
+        }
+        .card {
+            background-color: rgba(31, 41, 55, 0.5); /* Darker Gray with transparency */
+            border: 1px solid rgba(79, 70, 229, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+            border-color: rgba(79, 70, 229, 0.8);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4F46E5; /* Indigo */
+            border: 2px solid #111827;
+        }
+        .section-title {
+            border-bottom: 2px solid #4F46E5;
+            padding-bottom: 8px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #vaporwave-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Set canvas as the base layer */
+        }
+        .retro-icon {
+            display: block;
+            margin: 2rem auto;
+            width: 48px;
+            height: 48px;
+        }
+        .heart-pulse { animation: pulse 1.5s infinite; }
+        .arrow-bounce { animation: bounce 1.5s infinite; }
+        .coin-spin { animation: spin 2s linear infinite; }
+        .mail-blink { animation: blink 2s infinite; }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
+        @keyframes spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <canvas id="vaporwave-canvas"></canvas>
+
+    <!-- Main content container with a higher z-index -->
+    <div class="relative z-10 max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Header / Hero Section -->
+        <header class="text-center py-16 reveal">
+            <img src="https://placehold.co/128x128/111827/4F46E5?text=AR" alt="Your Avatar" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-indigo-600 shadow-lg"
+                 onerror="this.onerror=null;this.src='https://placehold.co/128x128/1F2937/E5E7EB?text=Error';">
+            <h1 class="font-orbitron text-4xl sm:text-5xl md:text-6xl font-bold uppercase tracking-wider neon-text">Alvin Brentt Raymundo</h1>
+            <p class="mt-4 text-lg sm:text-xl text-indigo-300">Game Developer | Automation Specialist | Tech Enthusiast</p>
+            <div class="mt-8 flex justify-center space-x-6">
+                <a href="mailto:youremail@example.com" class="text-gray-400 hover:text-indigo-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/></svg></a>
+                <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.513z"/></svg></a>
+            </div>
+        </header>
+
+        <!-- About Me & Skills Section -->
+        <section class="mb-16 reveal" id="bio-section">
+            <h2 class="font-orbitron text-3xl font-bold mb-4 section-title neon-text">LEVEL 1: PLAYER_BIO</h2>
+            <svg class="retro-icon heart-pulse" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+                <path fill="#F472B6" d="M4,2 H6 V3 H7 V4 H9 V3 H10 V2 H12 V4 H13 V6 H12 V8 H11 V9 H9 V10 H7 V9 H5 V8 H4 V6 H3 V4 H4 Z"/>
+            </svg>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div class="md:col-span-3 card p-6">
+                    <h3 class="text-xl font-bold text-indigo-300 mb-4">Story Mode</h3>
+                    <p class="text-gray-300 leading-relaxed" id="bio-text">
+                        Hello! I'm a developer with a core talent for automation and a passion for game creation. I thrive on building systems that streamline complex processes, whether it's developing in-game tools or automating development pipelines. My engine experience is diverse, with a strong command of both Unity and Godot. Currently, I'm channeling my skills into an exciting new Roblox experience, set for release by the end of this year. I'm always looking for the next challenge where I can merge my love for efficient design and engaging gameplay.
+                    </p>
+                </div>
+                <div class="md:col-span-2 card p-6" id="skills-section">
+                    <h3 class="text-xl font-bold text-indigo-300 mb-4">Character Stats</h3>
+                    <div class="space-y-4">
+                        <div data-skill-name="Automation & Tooling" data-skill-level="95%">
+                            <div class="flex justify-between mb-1"><span class="text-base font-medium text-red-300">Automation & Tooling</span><span class="text-sm font-medium text-red-300">95%</span></div>
+                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="bg-red-500 h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="95%"></div></div>
+                        </div>
+                        <div data-skill-name="Unity & C#" data-skill-level="90%">
+                            <div class="flex justify-between mb-1"><span class="text-base font-medium text-blue-300">Unity & C#</span><span class="text-sm font-medium text-blue-300">90%</span></div>
+                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="bg-blue-500 h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="90%"></div></div>
+                        </div>
+                        <div data-skill-name="Godot & GDScript" data-skill-level="85%">
+                            <div class="flex justify-between mb-1"><span class="text-base font-medium text-sky-300">Godot & GDScript</span><span class="text-sm font-medium text-sky-300">85%</span></div>
+                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="bg-sky-500 h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="85%"></div></div>
+                        </div>
+                        <div data-skill-name="Roblox & Luau" data-skill-level="80%">
+                            <div class="flex justify-between mb-1"><span class="text-base font-medium text-gray-300">Roblox & Luau</span><span class="text-sm font-medium text-gray-300">80%</span></div>
+                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="bg-gray-500 h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="80%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="mb-16 reveal">
+            <h2 class="font-orbitron text-3xl font-bold mb-4 section-title neon-text">LEVEL 2: QUEST_LOG</h2>
+            <svg class="retro-icon arrow-bounce" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+                <path fill="#60A5FA" d="M7 0h2v1h1v1h1v1h1v1h-1v1h-1v1h-1v1h-2v-1h-1v-1h-1v-1h-1v-1h1v-1h1v-1h1z M8 8h-1v1h-1v1h1v1h1v1h1v-1h1v-1h-1v-1h-1z"/>
+            </svg>
+            <div class="relative border-l-2 border-indigo-700 ml-4 pl-8 space-y-12">
+                <div class="relative timeline-item"><div class="card p-6"><p class="text-sm font-semibold text-indigo-400">2021 - Present</p><h3 class="text-xl font-bold mt-1">Lead Gameplay Programmer</h3><p class="text-md text-gray-400 mb-2">@ PixelStorm Games</p><p class="text-gray-300">Led the development of core gameplay mechanics for an unannounced RPG title. Implemented character controllers, AI behavior trees, and quest systems using Unreal Engine.</p></div></div>
+                <div class="relative timeline-item"><div class="card p-6"><p class="text-sm font-semibold text-indigo-400">2019 - 2021</p><h3 class="text-xl font-bold mt-1">Junior Game Developer</h3><p class="text-md text-gray-400 mb-2">@ Indie Dreamers Studio</p><p class="text-gray-300">Worked on multiple mobile titles using Unity. Responsible for UI implementation, tool development, and optimizing game performance for a wide range of devices.</p></div></div>
+                <div class="relative timeline-item"><div class="card p-6"><p class="text-sm font-semibold text-indigo-400">2018 - 2019</p><h3 class="text-xl font-bold mt-1">QA Tester (Intern)</h3><p class="text-md text-gray-400 mb-2">@ MegaCorp Gaming</p><p class="text-gray-300">Identified and documented hundreds of bugs for a major AAA release. Gained foundational knowledge of the game development lifecycle and quality assurance pipelines.</p></div></div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="mb-16 reveal" id="projects-section">
+            <h2 class="font-orbitron text-3xl font-bold mb-4 section-title neon-text">LEVEL 3: PORTFOLIO</h2>
+            <svg class="retro-icon coin-spin" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+                <path fill="#FBBF24" d="M6 0h4v1h2v2h1v8h-1v2h-2v1h-4v-1h-2v-2h-1v-8h1v-2h2z"/><path fill="#FCD34D" d="M7 1h2v1h2v1h1v8h-1v1h-2v1h-2v-1h-2v-1h-1v-8h1v-1h2z"/><path fill="#F59E0B" d="M7 2h2v12h-2z"/>
+            </svg>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card overflow-hidden" data-project-name="Project: CyberRun"><img src="https://placehold.co/600x400/1F2937/4F46E5?text=Project+CyberRun" alt="Project 1" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=Image+Error';"><div class="p-6"><h3 class="text-xl font-bold">Project: CyberRun</h3><p class="mt-2 text-gray-300">A fast-paced endless runner set in a cyberpunk city. Built with Unity.</p><div class="mt-4 flex flex-wrap gap-2"><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-200 bg-indigo-800">Unity</span><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-200 bg-indigo-800">C#</span><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-200 bg-indigo-800">Mobile</span></div></div></div>
+                <div class="card overflow-hidden" data-project-name="Project: Aetheria"><img src="https://placehold.co/600x400/1F2937/34D399?text=Project+Aetheria" alt="Project 2" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=Image+Error';"><div class="p-6"><h3 class="text-xl font-bold">Project: Aetheria</h3><p class="mt-2 text-gray-300">A prototype for a fantasy RPG with a dynamic weather system. Built with Unreal Engine.</p><div class="mt-4 flex flex-wrap gap-2"><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-200 bg-green-800">Unreal</span><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-200 bg-green-800">C++</span><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-200 bg-green-800">PC</span></div></div></div>
+                <div class="card overflow-hidden" data-project-name="Project: VoxelBot"><img src="https://placehold.co/600x400/1F2937/F59E0B?text=Project+VoxelBot" alt="Project 3" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=Image+Error';"><div class="p-6"><h3 class="text-xl font-bold">Project: VoxelBot</h3><p class="mt-2 text-gray-300">A 3D modeling toolkit for creating voxel-based assets. Built with Python.</p><div class="mt-4 flex flex-wrap gap-2"><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-yellow-200 bg-yellow-800">Python</span><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-yellow-200 bg-yellow-800">Blender</span><span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-yellow-200 bg-yellow-800">Tool</span></div></div></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <footer class="text-center py-12 reveal">
+            <h2 class="font-orbitron text-3xl font-bold mb-4 neon-text">START A NEW QUEST?</h2>
+            <svg class="retro-icon mail-blink" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+                <path fill="#9CA3AF" d="M1 3h14v1h1v8h-1v1h-14v-1h-1v-8h1z"/><path fill="#E5E7EB" d="M2 4h12v1h-12z M2 6l6 4 6-4v-1l-6 4-6-4z"/>
+            </svg>
+            <p class="text-gray-300 mb-8 max-w-2xl mx-auto">I'm currently available for freelance work and open to new opportunities. If you have a project in mind or just want to connect, feel free to reach out!</p>
+            <a href="mailto:youremail@example.com" id="contact-link" class="inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-md hover:bg-indigo-500 transition-colors shadow-lg hover:shadow-indigo-500/50">
+                Contact Me
+            </a>
+        </footer>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <script>
+        // --- SOUND EFFECT SETUP ---
+        const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+        synth.set({ oscillator: { type: 'sine' }, envelope: { attack: 0.005, decay: 0.1, sustain: 0.05, release: 0.1 } });
+        function playHoverSound() { if (Tone.context.state !== 'running') { Tone.start(); } synth.triggerAttackRelease("C5", "8n"); }
+        document.querySelectorAll('a, .card, button').forEach(elem => { elem.addEventListener('mouseenter', playHoverSound); });
+
+        // --- VAPORWAVE LANDSCAPE SETUP ---
+        // Perlin Noise Library (https://github.com/josephg/noisejs)
+        var noise = (function(){var a=new Uint8Array(512);(function(b){for(var c=0;c<256;c++)a[c]=c;for(var c=0;c<256;c++){var d=Math.floor(b()*256);var e=a[c];a[c]=a[d];a[d]=e}for(var c=0;c<256;c++)a[c+256]=a[c]})(Math.random);function f(b,c,d){return b+c*d}function g(b){return b<0?Math.floor(b):Math.ceil(b)}function h(b,c,d){var e=b%1;var i=c%1;var j=d%1;var k=g(b)&255;var l=g(c)&255;var m=g(d)&255;var n=a[k]+l;var o=a[n]+m;var p=a[n+1]+m;var q=a[k+1]+l;var r=a[q]+m;var s=a[q+1]+m;var t=f(e,i,j);var u=f(e-1,i,j);var v=f(e,i-1,j);var w=f(e-1,i-1,j);var x=f(e,i,j-1);var y=f(e-1,i,j-1);var z=f(e,i-1,j-1);var A=f(e-1,i-1,j-1);var B=a[o]*t;var C=a[r]*u;var D=a[p]*v;var E=a[s]*w;var F=a[o+1]*x;var G=a[r+1]*y;var H=a[p+1]*z;var I=a[s+1]*A;var J=e*e*e*(e*(e*6-15)+10);var K=i*i*i*(i*(i*6-15)+10);var L=j*j*j*(j*(j*6-15)+10);return f(f(f(B,C-B,J),f(D,E-D,J)-f(B,C-B,J),K),f(f(F,G-F,J),f(H,I-H,J)-f(F,G-F,J),K)-f(f(B,C-B,J),f(D,E-D,J)-f(B,C-B,J),K),L)}return{noise:h}})();
+
+        const canvas = document.getElementById('vaporwave-canvas');
+        let scene, camera, renderer, plane, clock;
+
+        function init() {
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x111827, 1, 30); // Adjusted fog distance
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 4, 0); // Increased camera height
+            camera.rotation.x = -0.3; // Adjusted camera angle for the new height
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            clock = new THREE.Clock();
+
+            // Create the landscape plane
+            const geometry = new THREE.PlaneGeometry(100, 200, 100, 100); 
+            const material = new THREE.MeshBasicMaterial({
+                color: 0xEC4899, // Hot Pink
+                wireframe: true
+            });
+
+            plane = new THREE.Mesh(geometry, material);
+            plane.rotation.x = -Math.PI / 2;
+            plane.position.y = 0;
+            scene.add(plane);
+            
+            // Add a vaporwave sun
+            const sunGeometry = new THREE.SphereGeometry(2, 32, 32);
+            const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xF472B6 });
+            const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+            sun.position.set(0, 2, -30); // Positioned on the horizon
+            scene.add(sun);
+
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        // This variable will track the movement of the terrain
+        let terrainMovement = 0;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // The terrain now moves towards the camera
+            terrainMovement += 0.02;
+
+            const positions = plane.geometry.attributes.position;
+
+            // Animate vertices to create a wave effect using Perlin noise
+            for (let i = 0; i < positions.count; i++) {
+                // We use the original y-position of the vertex to calculate noise
+                // This prevents the "cloth" effect and makes it feel like a landscape
+                const originalY = plane.geometry.attributes.position.getY(i);
+                
+                // Use Perlin noise for height.
+                // The noise is based on the vertex's x and its original y + the movement offset
+                const height = noise.noise(
+                    positions.getX(i) * 0.05, 
+                    originalY * 0.05 + terrainMovement, 
+                    0) * 0.10; // Drastically reduced height
+                positions.setZ(i, height);
+            }
+            positions.needsUpdate = true;
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+        animate();
+
+        // --- SCROLL ANIMATION SETUP ---
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); if (entry.target.querySelectorAll('.skill-bar-fill').length > 0) { entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => { bar.style.width = bar.dataset.width; }); } } }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => { observer.observe(el); });
+    </script>
+</body>
+</html>
