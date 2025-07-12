@@ -3,408 +3,505 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steffiny Albarillo - Fashion Marketing</title>
+    <title>Corporate Ladder Climber</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #1a1a2e;
-            color: #e0e0e0;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+            padding-bottom: 60px; /* Space for the ticker tape */
         }
-        .font-playfair {
-            font-family: 'Playfair Display', serif;
+        .btn {
+            transition: all 0.2s ease-in-out;
         }
-
-        /* --- Glassmorphism & Neon Aesthetic --- */
-        .glass-panel {
-            background: rgba(27, 27, 46, 0.5);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            box-shadow: 0 0 20px rgba(236, 72, 153, 0.2), 0 0 40px rgba(99, 102, 241, 0.2);
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        .neon-text-pink {
-            text-shadow: 0 0 5px rgba(236, 72, 153, 0.8), 0 0 10px rgba(236, 72, 153, 0.8), 0 0 20px rgba(236, 72, 153, 0.8);
+        .btn:active {
+            transform: translateY(0px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
-        .neon-text-blue {
-             text-shadow: 0 0 5px rgba(99, 102, 241, 0.8), 0 0 10px rgba(99, 102, 241, 0.8), 0 0 20px rgba(99, 102, 241, 0.8);
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        /* Tooltip styles */
+        .tooltip { position: relative; display: inline-block; }
+        .tooltip .tooltiptext {
+            visibility: hidden; width: 220px; background-color: #334155;
+            color: #fff; text-align: center; border-radius: 6px; padding: 8px;
+            position: absolute; z-index: 50; bottom: 125%; left: 50%;
+            margin-left: -110px; opacity: 0; transition: opacity 0.3s;
+            font-size: 0.8rem; line-height: 1.2;
         }
-
-        .neon-border-button {
-            border: 2px solid #ec4899;
-            color: #ec4899;
-            box-shadow: 0 0 10px #ec4899;
-            transition: all 0.3s ease;
+        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+        /* Event Notification Banner */
+        #event-notification {
+            transition: transform 0.5s ease-in-out;
+            transform: translateY(-150%);
         }
-        .neon-border-button:hover {
-            background-color: #ec4899;
-            color: #fff;
-            box-shadow: 0 0 20px #ec4899, 0 0 30px #ec4899;
-        }
-
-        .skill-bar-fill {
-            background: linear-gradient(90deg, #ec4899, #8b5cf6);
-            box-shadow: 0 0 10px #ec4899, 0 0 5px #8b5cf6;
-            transition: width 2s ease-in-out;
-        }
-
-        .timeline-dot {
-            background-color: #ec4899;
-            box-shadow: 0 0 15px #ec4899;
-        }
-        .timeline-line {
-            border-color: rgba(236, 72, 153, 0.5);
-        }
-        
-        /* --- General Styles --- */
-        .card:hover {
-            transform: translateY(-10px);
-        }
-        .nav-link {
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #ec4899;
-            text-shadow: 0 0 10px #ec4899;
-        }
-        .portfolio-item {
-            cursor: pointer;
-            overflow: hidden;
-            position: relative;
-        }
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s, transform 1s;
-        }
-        .reveal.visible {
-            opacity: 1;
+        #event-notification.show {
             transform: translateY(0);
         }
-
-        /* --- Animated Daisies --- */
-        .flower {
-            position: absolute;
-            bottom: -200px;
-            animation: float 35s infinite linear;
-            will-change: transform, opacity;
+        /* Ticker Tape */
+        #ticker-tape {
+            transition: opacity 0.8s ease-in-out;
+            opacity: 0;
         }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-120vh) rotate(360deg);
-                opacity: 0;
-            }
+        #ticker-tape.show {
+            opacity: 1;
         }
     </style>
 </head>
-<body class="bg-[#1a1a2e]">
+<body class="bg-slate-100 text-slate-800">
 
-    <!-- Floating daisies background -->
-    <div class="flowers-container fixed top-0 left-0 w-full h-full z-0"></div>
+    <!-- Event Notification Banner -->
+    <div id="event-notification" class="fixed top-0 left-0 right-0 bg-green-500 text-white p-4 text-center shadow-lg z-50">
+        <p id="event-text" class="font-semibold"></p>
+        <button id="event-close-btn" class="absolute top-1/2 right-4 -translate-y-1/2 text-2xl font-bold">&times;</button>
+    </div>
 
-    <!-- Header -->
-    <header class="bg-black/30 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-white/10">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-playfair font-bold text-white neon-text-pink">Steffiny Albarillo</a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="nav-link text-gray-300">About</a>
-                <a href="#experience" class="nav-link text-gray-300">Experience</a>
-                <a href="#portfolio" class="nav-link text-gray-300">Portfolio</a>
-                <a href="#contact" class="nav-link text-gray-300">Contact</a>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden flex items-center text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-black/50 backdrop-blur-md">
-            <a href="#about" class="block py-2 px-4 text-sm text-gray-300 hover:bg-pink-500/20">About</a>
-            <a href="#experience" class="block py-2 px-4 text-sm text-gray-300 hover:bg-pink-500/20">Experience</a>
-            <a href="#portfolio" class="block py-2 px-4 text-sm text-gray-300 hover:bg-pink-500/20">Portfolio</a>
-            <a href="#contact" class="block py-2 px-4 text-sm text-gray-300 hover:bg-pink-500/20">Contact</a>
+    <div class="container mx-auto p-4 max-w-7xl">
+        <!-- Header -->
+        <div class="text-center mb-4 p-4 bg-white rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold text-slate-700">Corporate Ladder Climber</h1>
+            <p class="text-slate-500">A Satirical Journey Through the Absurdity of Work</p>
         </div>
-    </header>
 
-    <main class="relative z-10">
-        <!-- Hero Section -->
-        <section class="min-h-screen flex items-center justify-center text-center text-white pt-24 px-6">
-            <div class="container mx-auto">
-                <h1 class="text-5xl md:text-8xl font-playfair font-bold mb-4 reveal neon-text-pink">Where Style Meets Strategy</h1>
-                <p class="text-lg md:text-2xl max-w-3xl mx-auto reveal neon-text-blue" style="transition-delay: 200ms;">Passionate about weaving compelling brand narratives in the vibrant world of fashion.</p>
-            </div>
-        </section>
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-        <!-- About Me Section -->
-        <section id="about" class="py-16">
-            <div class="container mx-auto px-6">
-                <div class="glass-panel p-8 md:p-12">
-                    <div class="grid md:grid-cols-5 gap-12 items-center">
-                        <div class="md:col-span-2 reveal">
-                            <img src="https://placehold.co/600x800/ec4899/FFFFFF?text=Steffy" alt="Steffiny Albarillo" class="rounded-lg shadow-2xl w-full h-auto object-cover">
-                        </div>
-                        <div class="md:col-span-3 reveal" style="transition-delay: 200ms;">
-                            <h2 class="text-3xl md:text-4xl font-playfair font-bold mb-6 text-white neon-text-pink">Hello, I'm Steffiny (you can call me Steff).</h2>
-                            <p class="mb-4 text-gray-300">From a young age, I've been captivated by the power of fashion to tell a story. This passion led me to the dynamic field of marketing, where I've honed my skills in creating memorable campaigns that resonate with audiences and drive brand growth.</p>
-                            <p class="mb-6 text-gray-300">I thrive on the challenge of blending creative vision with data-driven insights to build marketing strategies that are not only beautiful but also effective. I'm eager to bring my unique blend of artistry and analytics to a forward-thinking fashion brand.</p>
-                            <a href="#contact" class="font-bold py-3 px-6 rounded-lg neon-border-button inline-block">Let's Connect</a>
-                        </div>
+            <!-- Left Column: Core Actions & Stats -->
+            <div class="lg:col-span-1 bg-white p-4 rounded-lg shadow-md flex flex-col">
+                <div class="text-center mb-4">
+                    <h2 class="text-xl font-semibold">Productivity Dashboard</h2>
+                    <p id="productivity-total" class="text-4xl font-bold text-sky-600 my-2">0</p>
+                    <p class="text-slate-500">Productivity Units (PU)</p>
+                    <p id="productivity-per-second" class="text-slate-500 text-sm">(+0 PU/sec)</p>
+                </div>
+                
+                <div class="flex-grow flex flex-col justify-center">
+                    <button id="manual-work-btn" class="w-full bg-sky-500 text-white font-bold py-4 px-4 rounded-lg shadow-lg btn text-lg">
+                        Manually Do Work
+                        <span class="block text-sm font-normal">(+<span id="manual-work-gain">1</span> PU)</span>
+                    </button>
+                </div>
+
+                <!-- Active Boosts Section -->
+                <div id="active-boosts-container" class="mt-4">
+                    <h3 class="text-lg font-semibold text-center">Active Boosts</h3>
+                    <div id="active-boosts-list" class="mt-2 space-y-1 text-sm">
+                        <!-- Active boosts will be injected here -->
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Experience Section -->
-        <section id="experience" class="py-16 relative overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop" class="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0" alt="Abstract background">
-            <div class="container mx-auto px-6 relative z-10">
-                 <h2 class="text-4xl md:text-5xl font-playfair font-bold text-center mb-10 reveal text-white neon-text-pink">My Journey</h2>
-                <div class="relative">
-                    <div class="hidden md:block absolute timeline-line h-full" style="left: 50%;"></div>
-                    
-                    <div class="mb-8 flex justify-between items-center w-full md:w-auto md:flex-row-reverse reveal">
-                        <div class="md:w-5/12"></div>
-                        <div class="z-20 flex items-center order-1 timeline-dot w-8 h-8 rounded-full">
-                            <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
-                        </div>
-                        <div class="order-1 glass-panel w-full md:w-5/12 px-6 py-4 card">
-                            <h3 class="font-bold text-white text-xl">Marketing Intern</h3>
-                            <p class="text-sm leading-snug tracking-wide text-pink-400 font-semibold">Chic Couture | Summer 2023</p>
-                            <p class="text-gray-300 mt-2">Assisted in developing and executing social media campaigns across Instagram and TikTok, increasing engagement by 25%.</p>
-                        </div>
-                    </div>
-
-                    <div class="mb-8 flex justify-between items-center w-full md:w-auto reveal">
-                        <div class="md:w-5/12"></div>
-                        <div class="z-20 flex items-center order-1 timeline-dot w-8 h-8 rounded-full">
-                            <h1 class="mx-auto text-white font-semibold text-lg">2</h1>
-                        </div>
-                        <div class="order-1 glass-panel w-full md:w-5/12 px-6 py-4 card">
-                            <h3 class="font-bold text-white text-xl">Brand Ambassador</h3>
-                            <p class="text-sm leading-snug tracking-wide text-pink-400 font-semibold">Vogue Collective | 2022 - 2023</p>
-                            <p class="text-gray-300 mt-2">Represented the brand at campus events, driving awareness and user sign-ups. Created user-generated content.</p>
-                        </div>
-                    </div>
-
-                    <div class="mb-8 flex justify-between items-center w-full md:w-auto md:flex-row-reverse reveal">
-                        <div class="md:w-5/12"></div>
-                        <div class="z-20 flex items-center order-1 timeline-dot w-8 h-8 rounded-full">
-                            <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
-                        </div>
-                        <div class="order-1 glass-panel w-full md:w-5/12 px-6 py-4 card">
-                            <h3 class="font-bold text-white text-xl">Social Media Manager</h3>
-                            <p class="text-sm leading-snug tracking-wide text-pink-400 font-semibold">Digital Bloom Agency | 2021 - 2022</p>
-                            <p class="text-gray-300 mt-2">Managed and grew social media accounts for various fashion clients, focusing on community building and content strategy.</p>
-                        </div>
-                    </div>
+                <div class="mt-6 text-center">
+                    <h3 class="text-lg font-semibold">Synergy</h3>
+                    <p id="synergy-points" class="text-2xl font-bold text-indigo-600">0</p>
+                    <p class="text-slate-500">Total Synergy Points</p>
+                    <p id="synergy-bonus" class="text-slate-500 text-sm">(+0% Global Bonus)</p>
+                </div>
+                
+                <div class="mt-4">
+                    <button id="prestige-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg btn opacity-50 cursor-not-allowed" disabled>
+                        Seek Lateral Promotion
+                        <span id="prestige-gain-preview" class="block text-sm font-normal">(Requires 1 Trillion PU)</span>
+                    </button>
                 </div>
             </div>
-        </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="py-16">
-            <div class="container mx-auto px-6">
-                <div class="glass-panel p-8 md:p-12">
-                    <h2 class="text-4xl md:text-5xl font-playfair font-bold text-center mb-10 reveal text-white neon-text-pink">My Toolkit</h2>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div class="reveal">
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-300">Social Media Marketing</h3>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="90%"></div></div>
-                        </div>
-                        <div class="reveal">
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-300">Brand Strategy</h3>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="80%"></div></div>
-                        </div>
-                        <div class="reveal">
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-300">SEO & Content Creation</h3>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="85%"></div></div>
-                        </div>
-                        <div class="reveal">
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-300">Email Marketing</h3>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="75%"></div></div>
-                        </div>
-                        <div class="reveal">
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-300">Adobe Creative Suite</h3>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="95%"></div></div>
-                        </div>
-                        <div class="reveal">
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-300">Market Analysis</h3>
-                            <div class="w-full bg-gray-700 rounded-full h-2.5"><div class="h-2.5 rounded-full skill-bar-fill" style="width: 0%" data-width="88%"></div></div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Middle Column: Generators (Employees) -->
+            <div class="lg:col-span-1 bg-white p-4 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-center mb-4">Human Resources</h2>
+                <div class="space-y-3 overflow-y-auto max-h-[60vh] pr-2" id="generators-container"></div>
             </div>
-        </section>
 
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="py-16">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-playfair font-bold text-center mb-10 reveal text-white neon-text-pink">My Work</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="portfolio-item rounded-lg shadow-lg reveal glass-panel p-2">
-                         <img src="https://images.unsplash.com/photo-1551803091-e206d7e0f8de?q=80&w=1887&auto=format&fit=crop" alt="Portfolio Item 1" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FF9A8B/FFFFFF?text=Campaign+1';">
-                         <div class="portfolio-overlay rounded-md"><h3 class="font-bold text-xl neon-text-pink">Urban Bloom Campaign</h3><p>Social Media Strategy</p></div>
-                    </div>
-                    <div class="portfolio-item rounded-lg shadow-lg reveal glass-panel p-2">
-                         <img src="https://images.unsplash.com/photo-1524638431109-93d95c968f03?q=80&w=1887&auto=format&fit=crop" alt="Portfolio Item 2" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FF6A88/FFFFFF?text=Campaign+2';">
-                         <div class="portfolio-overlay rounded-md"><h3 class="font-bold text-xl neon-text-pink">Coastal Muse Lookbook</h3><p>Content Creation</p></div>
-                    </div>
-                    <div class="portfolio-item rounded-lg shadow-lg reveal glass-panel p-2">
-                         <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=2070&auto=format&fit=crop" alt="Portfolio Item 3" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FF99AC/FFFFFF?text=Campaign+3';">
-                         <div class="portfolio-overlay rounded-md"><h3 class="font-bold text-xl neon-text-pink">E-commerce Launch</h3><p>Brand Identity & SEO</p></div>
-                    </div>
-                </div>
+            <!-- Right Column: Upgrades & Mandates -->
+            <div class="lg:col-span-1 bg-white p-4 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-center mb-4">Corporate Mandates</h2>
+                <div class="space-y-3 overflow-y-auto max-h-[60vh] pr-2" id="upgrades-container"></div>
             </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-16">
-            <div class="container mx-auto px-6">
-                <div class="bg-[#11111f] p-8 md:p-12 text-center rounded-2xl border border-white/10">
-                    <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-4 reveal text-white neon-text-pink">Let's Create Something Beautiful.</h2>
-                    <p class="max-w-2xl mx-auto mb-8 reveal text-gray-300">I'm currently seeking new opportunities and would love to hear from you.</p>
-                    <div class="max-w-xl mx-auto reveal">
-                        <form action="#" method="POST" class="text-left">
-                            <div class="mb-4">
-                                <label for="name" class="block text-indigo-300 text-sm font-bold mb-2">Name</label>
-                                <input type="text" id="name" name="name" class="shadow appearance-none w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-black/30 border border-white/20 rounded-lg text-white" required>
-                            </div>
-                            <div class="mb-4">
-                                <label for="email" class="block text-indigo-300 text-sm font-bold mb-2">Email</label>
-                                <input type="email" id="email" name="email" class="shadow appearance-none w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-black/30 border border-white/20 rounded-lg text-white" required>
-                            </div>
-                            <div class="mb-6">
-                                <label for="message" class="block text-indigo-300 text-sm font-bold mb-2">Message</label>
-                                <textarea id="message" name="message" rows="4" class="shadow appearance-none w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-black/30 border border-white/20 rounded-lg text-white" required></textarea>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="font-bold py-3 px-8 rounded-lg neon-border-button">Send Message</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-black/30 text-white py-8 border-t border-white/10 mt-16 relative z-10">
-        <div class="container mx-auto px-6 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="#" class="nav-link text-gray-400">LinkedIn</a>
-                <a href="#" class="nav-link text-gray-400">Instagram</a>
-                <a href="#" class="nav-link text-gray-400">Portfolio</a>
-            </div>
-            <p class="text-gray-500">&copy; 2024 Steffiny Albarillo. All Rights Reserved.</p>
         </div>
-    </footer>
+    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // --- Animated Daisies ---
-            const flowerContainer = document.querySelector('.flowers-container');
-            if (flowerContainer) {
-                const numFlowers = 20;
-                // Corrected SVG with all 8 petals
-                const daisySVG = `
-                <svg width="100%" height="100%" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(var(--r, 0deg));">
-                    <defs><filter id="glow"><feGaussianBlur stdDeviation="2.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-                    <g fill="rgba(255, 255, 255, 0.3)" filter="url(#glow)">
-                        <ellipse cx="25" cy="15.5" rx="5.5" ry="10.5"></ellipse>
-                        <ellipse cx="25" cy="15.5" rx="5.5" ry="10.5" transform="rotate(45 25 25)"></ellipse>
-                        <ellipse cx="25" cy="15.5" rx="5.5" ry="10.5" transform="rotate(90 25 25)"></ellipse>
-                        <ellipse cx="25" cy="15.5" rx="5.5" ry="10.5" transform="rotate(135 25 25)"></ellipse>
-                        <ellipse cx="25" cy="15.5" rx="5.5" ry="10.5" transform="rotate(180 25 25)"></ellipse>
-                        <ellipse cx="25" cy="15.5" rx="5.5" ry="10.5" transform="rotate(225 25 25)"></ellipse>
-                        <ellipse cx="25" cy="15.5" rx="5.5" ry="10.5" transform="rotate(270 25 25)"></ellipse>
-                        <ellipse cx="25" cy="15.5" rx="5.5" ry="10.5" transform="rotate(315 25 25)"></ellipse>
-                    </g>
-                    <circle cx="25" cy="25" r="7" fill="rgba(236, 72, 153, 0.4)" filter="url(#glow)"></circle>
-                </svg>`;
+    <!-- Modal for Prestige Confirmation -->
+    <div id="prestige-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 shadow-2xl max-w-md w-full text-center">
+            <h2 class="text-2xl font-bold mb-4">Seek a Lateral Promotion?</h2>
+            <p class="text-slate-600 mb-6">You'll be assigned to a new "strategic initiative". Your productivity, employees, and mandates will be reset, but your experience will be converted into valuable Synergy.</p>
+            <p class="mb-2">You will gain:</p>
+            <p id="modal-prestige-gain" class="text-3xl font-bold text-indigo-600 mb-6">0 Synergy Points</p>
+            <div class="flex justify-center gap-4">
+                <button id="confirm-prestige-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg btn">Confirm</button>
+                <button id="cancel-prestige-btn" class="bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-lg btn">Cancel</button>
+            </div>
+        </div>
+    </div>
 
-                for (let i = 0; i < numFlowers; i++) {
-                    const flower = document.createElement('div');
-                    flower.classList.add('flower');
-                    flower.innerHTML = daisySVG;
+    <!-- Ticker Tape -->
+    <div id="ticker-tape" class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 shadow-inner z-40">
+        <p id="ticker-message" class="text-center text-slate-600 text-sm"></p>
+    </div>
 
-                    const size = Math.random() * 120 + 40; // Increased size
-                    const left = Math.random() * 100;
-                    const duration = Math.random() * 25 + 20;
-                    const delay = Math.random() * 20;
-                    const rotation = Math.random() * 360;
+<script>
+// --- GAME CONFIGURATION & INITIAL STATE ---
+const GAME_TICK_MS = 100;
+const PRESTIGE_REQ = 1e12;
 
-                    flower.style.width = `${size}px`;
-                    flower.style.height = `${size}px`;
-                    flower.style.left = `${left}vw`;
-                    flower.style.animationDuration = `${duration}s`;
-                    flower.style.animationDelay = `${delay}s`;
-                    flower.style.setProperty('--r', `${rotation}deg`);
+const GENERATORS = {
+    intern: { name: "Unpaid Intern", description: "Fetches coffee.", baseCost: 10, growthRate: 1.07, baseProd: 0.1 },
+    associate: { name: "Junior Associate", description: "Turns coffee into TPS reports.", baseCost: 150, growthRate: 1.08, baseProd: 1 },
+    manager: { name: "Middle Manager", description: "Schedules meetings.", baseCost: 2000, growthRate: 1.09, baseProd: 8 },
+    director: { name: "Senior Director", description: "Uses corporate jargon.", baseCost: 30000, growthRate: 1.10, baseProd: 50 },
+    executive: { name: "C-Suite Executive", description: "Plays golf.", baseCost: 500000, growthRate: 1.12, baseProd: 300 },
+    thoughtLeader: { name: "Thought Leader", description: "Posts on LinkedIn.", baseCost: 1e7, growthRate: 1.15, baseProd: 2000 }
+};
 
-                    flowerContainer.appendChild(flower);
-                }
+const UPGRADES = {
+    manual1: { name: "Ergonomic Mouse", description: "Doubles manual work output.", cost: 100, target: 'manual', type: 'multiplier', value: 2 },
+    intern1: { name: "Slightly Faster Wi-Fi", description: "Unpaid Interns are twice as efficient.", cost: 500, target: 'intern', type: 'multiplier', value: 2 },
+    associate1: { name: "Second Monitor", description: "Junior Associates are twice as efficient.", cost: 2500, target: 'associate', type: 'multiplier', value: 2 },
+    global1: { name: "Mandatory Fun Day", description: "Boosts all productivity by 50%.", cost: 10000, target: 'all', type: 'multiplier', value: 1.5 },
+    manual2: { name: "'Reply All' Masterclass", description: "Doubles manual work output again.", cost: 50000, target: 'manual', type: 'multiplier', value: 2 },
+    manager1: { name: "Noise-Cancelling Headphones", description: "Middle Managers are twice as efficient.", cost: 150000, target: 'manager', type: 'multiplier', value: 2 },
+    director1: { name: "Glossy PowerPoint Template", description: "Senior Directors are twice as efficient.", cost: 1e6, target: 'director', type: 'multiplier', value: 2 },
+    global2: { name: "Agile Transformation", description: "Boosts all productivity by 100%.", cost: 5e6, target: 'all', type: 'multiplier', value: 2 },
+    executive1: { name: "Corporate Retreat", description: "C-Suite Executives are twice as efficient.", cost: 2.5e7, target: 'executive', type: 'multiplier', value: 2 },
+    thoughtLeader1: { name: "Viral LinkedIn Post", description: "Thought Leaders are twice as efficient.", cost: 1e9, target: 'thoughtLeader', type: 'multiplier', value: 2 },
+    global3: { name: "Digital Synergy Paradigm", description: "Boosts all productivity by 200%.", cost: 5e9, target: 'all', type: 'multiplier', value: 3 },
+};
+
+const RANDOM_EVENTS = [
+    { name: "Office Pizza Party!", description: "Morale is high! All productivity is doubled for 60 seconds.", type: 'boost', target: 'all', multiplier: 2, duration: 60000 },
+    { name: "IT Found an Old Server", description: "A treasure trove of data! Gain 5 minutes worth of PU instantly.", type: 'lumpSum', value: 300 },
+    { name: "Consultant's Report Arrives", description: "Their advice was to hire more people. You get a free employee!", type: 'freeGenerator' }
+];
+
+// --- NEW: TICKER TAPE MESSAGES ---
+const TICKER_MESSAGES = [
+    "FROM: HR | SUBJECT: Gentle Reminder: Please Complete Your Mandatory Compliance Training",
+    "FROM: Your Boss | SUBJECT: Quick Sync?",
+    "FROM: IT Dept | SUBJECT: URGENT: Phishing Awareness and You",
+    "Our profits are at a record high this quarter. Let's push harder this next quarter!",
+    "REMINDER: Please fill out your TPS reports by EOD.",
+    "Let's try to think outside the box, but also stay within the established guidelines.",
+    "Don't forget the mandatory team-building exercise in the breakroom. Attendance is optional but highly encouraged.",
+    "Remember to circle back and touch base on all action items from this morning's stand-up.",
+    "Productivity is a mindset. Are you in the right mindset today?",
+    "To the person who left a fish in the microwave: please don't."
+];
+
+let gameState = {};
+let activeBoosts = [];
+
+// --- UTILITY FUNCTIONS ---
+function formatNumber(num) {
+    if (num < 1000) return num.toFixed(1);
+    const suffixes = ["", "K", "M", "B", "T", "q", "Q", "s", "S", "O", "N", "d", "U", "D"];
+    const i = Math.floor(Math.log10(num) / 3);
+    if (i >= suffixes.length) return num.toExponential(2);
+    return (num / Math.pow(1000, i)).toFixed(2) + suffixes[i];
+}
+
+// --- CORE GAME LOGIC ---
+function calculateGeneratorCost(id) {
+    const generator = GENERATORS[id];
+    const owned = gameState.generators[id].owned;
+    return Math.ceil(generator.baseCost * Math.pow(generator.growthRate, owned));
+}
+
+function calculateTotalProd() {
+    let totalProd = 0;
+    for (const id in GENERATORS) {
+        const generator = GENERATORS[id];
+        const state = gameState.generators[id];
+        let generatorProd = state.owned * generator.baseProd * state.multiplier * gameState.globalMultiplier;
+        totalProd += generatorProd;
+    }
+    const prestigeBonus = 1 + (gameState.synergy.points * gameState.synergy.bonusPerPoint);
+    totalProd *= prestigeBonus;
+    activeBoosts.forEach(boost => {
+        if (boost.target === 'all') totalProd *= boost.multiplier;
+    });
+    return totalProd;
+}
+
+function calculateManualWorkGain() {
+    let manualGain = gameState.manual.multiplier * (1 + (gameState.synergy.points * gameState.synergy.bonusPerPoint));
+     activeBoosts.forEach(boost => {
+        if (boost.target === 'manual' || boost.target === 'all') manualGain *= boost.multiplier;
+    });
+    return manualGain;
+}
+
+function buyGenerator(id) {
+    const cost = calculateGeneratorCost(id);
+    if (gameState.productivity >= cost) {
+        gameState.productivity -= cost;
+        gameState.generators[id].owned++;
+        updateUI();
+    }
+}
+
+function buyUpgrade(id) {
+    const upgrade = UPGRADES[id];
+    if (gameState.productivity >= upgrade.cost && !gameState.upgrades[id].purchased) {
+        gameState.productivity -= upgrade.cost;
+        gameState.upgrades[id].purchased = true;
+        if (upgrade.target === 'all') gameState.globalMultiplier *= upgrade.value;
+        else if (upgrade.target === 'manual') gameState.manual.multiplier *= upgrade.value;
+        else gameState.generators[upgrade.target].multiplier *= upgrade.value;
+        document.getElementById(`upg-${id}`).remove();
+        updateUI();
+    }
+}
+
+// --- PRESTIGE LOGIC ---
+function calculatePrestigeGain() {
+    if (gameState.productivity < PRESTIGE_REQ) return 0;
+    return Math.floor(Math.cbrt(gameState.lifetimeProductivity / 1e12));
+}
+
+function prestigeReset() {
+    const gain = calculatePrestigeGain();
+    if (gain > 0) {
+        const newSynergy = gameState.synergy.points + gain;
+        const lifetimeProd = gameState.lifetimeProductivity;
+        initGameState();
+        gameState.synergy.points = newSynergy;
+        gameState.lifetimeProductivity = lifetimeProd;
+        saveGame();
+        createDOM();
+        updateUI();
+    }
+    document.getElementById('prestige-modal').classList.add('hidden');
+}
+
+// --- RANDOM EVENT LOGIC ---
+function triggerRandomEvent() {
+    if (Math.random() < 0.1) {
+        const event = RANDOM_EVENTS[Math.floor(Math.random() * RANDOM_EVENTS.length)];
+        applyEvent(event);
+    }
+}
+
+function applyEvent(event) {
+    showEventNotification(event.name, event.description);
+    switch (event.type) {
+        case 'boost':
+            const boostId = Date.now();
+            const newBoost = { ...event, id: boostId, expires: Date.now() + event.duration };
+            activeBoosts.push(newBoost);
+            setTimeout(() => {
+                activeBoosts = activeBoosts.filter(b => b.id !== boostId);
+                updateUI();
+            }, event.duration);
+            break;
+        case 'lumpSum':
+            const pps = calculateTotalProd();
+            const gain = pps * event.value;
+            gameState.productivity += gain;
+            gameState.lifetimeProductivity += gain;
+            break;
+        case 'freeGenerator':
+            const ownedGenerators = Object.keys(GENERATORS).filter(id => gameState.generators[id].owned > 0);
+            if (ownedGenerators.length > 0) {
+                const randomGenId = ownedGenerators[Math.floor(Math.random() * ownedGenerators.length)];
+                gameState.generators[randomGenId].owned++;
+            } else {
+                 gameState.generators.intern.owned++;
             }
+            break;
+    }
+    updateUI();
+}
 
-            // --- Mobile Menu ---
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+// --- UI & RENDERING ---
+function showEventNotification(title, description) {
+    const banner = document.getElementById('event-notification');
+    document.getElementById('event-text').innerHTML = `<strong class="text-lg">${title}</strong><br><span class="text-sm">${description}</span>`;
+    banner.classList.add('show');
+    setTimeout(() => banner.classList.remove('show'), 8000);
+}
 
-            // --- Smooth Scrolling ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetElement = document.querySelector(this.getAttribute('href'));
-                    if(targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
+function updateActiveBoostsUI() {
+    const listEl = document.getElementById('active-boosts-list');
+    listEl.innerHTML = '';
+    if (activeBoosts.length === 0) {
+        listEl.innerHTML = '<p class="text-slate-400 text-center italic">No active boosts.</p>';
+        return;
+    }
+    activeBoosts.forEach(boost => {
+        const remaining = Math.ceil((boost.expires - Date.now()) / 1000);
+        const el = document.createElement('div');
+        el.className = 'bg-green-100 text-green-800 p-2 rounded-md';
+        el.innerHTML = `<strong>${boost.name}</strong> (+${(boost.multiplier - 1) * 100}% All) - ${remaining}s left`;
+        listEl.appendChild(el);
+    });
+}
 
-            // --- Intersection Observer for Animations ---
-            const revealElements = document.querySelectorAll('.reveal');
-            const skillBars = document.querySelectorAll('.skill-bar-fill');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('skill-bar-fill')) {
-                            entry.target.style.width = entry.target.dataset.width;
-                        }
-                    }
-                });
-            }, { threshold: 0.1 });
+function updateTicker() {
+    const tickerEl = document.getElementById('ticker-tape');
+    const messageEl = document.getElementById('ticker-message');
+    
+    // Fade out the current message
+    tickerEl.classList.remove('show');
 
-            revealElements.forEach(el => observer.observe(el));
-            skillBars.forEach(bar => observer.observe(bar));
-        });
-    </script>
+    setTimeout(() => {
+        // After it's faded out, change the message and fade it back in
+        const newMessage = TICKER_MESSAGES[Math.floor(Math.random() * TICKER_MESSAGES.length)];
+        messageEl.textContent = newMessage;
+        tickerEl.classList.add('show');
+    }, 800); // This timeout should match the CSS transition duration
+}
+
+function updateUI() {
+    document.getElementById('productivity-total').textContent = formatNumber(gameState.productivity);
+    document.getElementById('productivity-per-second').textContent = `(+${formatNumber(calculateTotalProd())} PU/sec)`;
+    document.getElementById('manual-work-gain').textContent = formatNumber(calculateManualWorkGain());
+    document.getElementById('synergy-points').textContent = formatNumber(gameState.synergy.points);
+    const synergyBonus = gameState.synergy.points * gameState.synergy.bonusPerPoint * 100;
+    document.getElementById('synergy-bonus').textContent = `(+${formatNumber(synergyBonus)}% Global Bonus)`;
+
+    for (const id in GENERATORS) {
+        const cost = calculateGeneratorCost(id);
+        const el = document.getElementById(`gen-${id}`);
+        if(!el) continue;
+        el.querySelector('.gen-owned').textContent = formatNumber(gameState.generators[id].owned);
+        el.querySelector('.gen-cost').textContent = formatNumber(cost);
+        const buyBtn = el.querySelector('.buy-btn');
+        buyBtn.disabled = gameState.productivity < cost;
+        buyBtn.classList.toggle('bg-slate-500', gameState.productivity < cost);
+        buyBtn.classList.toggle('bg-green-500', gameState.productivity >= cost);
+    }
+
+    for (const id in UPGRADES) {
+        const el = document.getElementById(`upg-${id}`);
+        if (!el || gameState.upgrades[id].purchased) continue;
+        const buyBtn = el.querySelector('.buy-btn');
+        buyBtn.disabled = gameState.productivity < UPGRADES[id].cost;
+        buyBtn.classList.toggle('bg-slate-500', gameState.productivity < UPGRADES[id].cost);
+        buyBtn.classList.toggle('bg-blue-500', gameState.productivity >= UPGRADES[id].cost);
+    }
+    
+    const prestigeGain = calculatePrestigeGain();
+    const prestigeBtn = document.getElementById('prestige-btn');
+    if (prestigeGain > 0) {
+        prestigeBtn.disabled = false;
+        prestigeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        document.getElementById('prestige-gain-preview').textContent = `(+${formatNumber(prestigeGain)} Synergy)`;
+    } else {
+        prestigeBtn.disabled = true;
+        prestigeBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        document.getElementById('prestige-gain-preview').textContent = `(Requires ${formatNumber(PRESTIGE_REQ)} PU)`;
+    }
+    updateActiveBoostsUI();
+}
+
+function createDOM() {
+    const genContainer = document.getElementById('generators-container');
+    genContainer.innerHTML = '';
+    for (const id in GENERATORS) {
+        const generator = GENERATORS[id];
+        const el = document.createElement('div');
+        el.id = `gen-${id}`;
+        el.className = 'p-3 border border-slate-200 rounded-lg flex items-center gap-4';
+        el.innerHTML = `<div class="flex-grow tooltip"><h4 class="font-semibold">${generator.name}</h4><p class="text-sm text-slate-500">Owned: <span class="gen-owned font-bold">0</span></p><span class="tooltiptext">${generator.description}</span></div><button class="buy-btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md btn w-32">Hire (<span class="gen-cost">${formatNumber(generator.baseCost)}</span>)</button>`;
+        el.querySelector('.buy-btn').addEventListener('click', () => buyGenerator(id));
+        genContainer.appendChild(el);
+    }
+
+    const upgContainer = document.getElementById('upgrades-container');
+    upgContainer.innerHTML = '';
+    for (const id in UPGRADES) {
+        if (gameState.upgrades[id].purchased) continue;
+        const upgrade = UPGRADES[id];
+        const el = document.createElement('div');
+        el.id = `upg-${id}`;
+        el.className = 'p-3 border border-slate-200 rounded-lg flex items-center gap-4';
+        el.innerHTML = `<div class="flex-grow tooltip"><h4 class="font-semibold">${upgrade.name}</h4><p class="text-sm text-slate-500">Cost: ${formatNumber(upgrade.cost)} PU</p><span class="tooltiptext">${upgrade.description}</span></div><button class="buy-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md btn w-32">Acquire</button>`;
+        el.querySelector('.buy-btn').addEventListener('click', () => buyUpgrade(id));
+        upgContainer.appendChild(el);
+    }
+}
+
+// --- INITIALIZATION & GAME LOOP ---
+function initGameState() {
+    gameState = {
+        productivity: 0, lifetimeProductivity: 0, globalMultiplier: 1,
+        manual: { multiplier: 1 },
+        generators: {}, upgrades: {},
+        synergy: { points: 0, bonusPerPoint: 0.02 },
+    };
+    for (const id in GENERATORS) gameState.generators[id] = { owned: 0, multiplier: 1 };
+    for (const id in UPGRADES) gameState.upgrades[id] = { purchased: false };
+    activeBoosts = [];
+}
+
+function loadGame() {
+    const savedState = localStorage.getItem('corporateClimberSave');
+    if (savedState) {
+        const parsedState = JSON.parse(savedState);
+        const defaultState = gameState;
+        gameState = { ...defaultState, ...parsedState };
+        gameState.synergy = { ...defaultState.synergy, ...parsedState.synergy };
+        gameState.manual = { ...defaultState.manual, ...parsedState.manual };
+        gameState.generators = {};
+        for(const id in GENERATORS) gameState.generators[id] = { ...defaultState.generators[id], ...parsedState.generators?.[id] };
+        gameState.upgrades = {};
+        for(const id in UPGRADES) gameState.upgrades[id] = { ...defaultState.upgrades[id], ...parsedState.upgrades?.[id] };
+    }
+}
+
+function saveGame() {
+    localStorage.setItem('corporateClimberSave', JSON.stringify(gameState));
+}
+
+function gameLoop() {
+    const pps = calculateTotalProd();
+    const gain = pps * (GAME_TICK_MS / 1000);
+    gameState.productivity += gain;
+    gameState.lifetimeProductivity += gain;
+    updateUI();
+}
+
+window.onload = function() {
+    initGameState();
+    loadGame();
+    createDOM();
+    
+    document.getElementById('manual-work-btn').addEventListener('click', () => {
+        const gain = calculateManualWorkGain();
+        gameState.productivity += gain;
+        gameState.lifetimeProductivity += gain;
+        updateUI();
+    });
+    document.getElementById('prestige-btn').addEventListener('click', () => {
+        const gain = calculatePrestigeGain();
+        if (gain > 0) {
+            document.getElementById('modal-prestige-gain').textContent = `${formatNumber(gain)} Synergy Points`;
+            document.getElementById('prestige-modal').classList.remove('hidden');
+        }
+    });
+    document.getElementById('confirm-prestige-btn').addEventListener('click', prestigeReset);
+    document.getElementById('cancel-prestige-btn').addEventListener('click', () => {
+        document.getElementById('prestige-modal').classList.add('hidden');
+    });
+    document.getElementById('event-close-btn').addEventListener('click', () => {
+        document.getElementById('event-notification').classList.remove('show');
+    });
+
+    setInterval(gameLoop, GAME_TICK_MS);
+    setInterval(saveGame, 5000);
+    setInterval(triggerRandomEvent, 20000);
+    setInterval(updateTicker, 12000); // Update ticker every 12 seconds
+    updateTicker(); // Show first message immediately
+};
+</script>
 </body>
 </html>
